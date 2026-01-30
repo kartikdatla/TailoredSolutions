@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailored Solutions - Website Installer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #d4af37, #f4d03f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #8892b0;
+            font-size: 18px;
+        }
+
+        .platform-selector {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .platform-btn {
+            padding: 20px 40px;
+            border: 2px solid #333;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .platform-btn:hover {
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .platform-btn.active {
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        .platform-btn .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .platform-btn .name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .steps-container {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #d4af37, #f4d03f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #1a1a2e;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .step-content {
+            line-height: 1.8;
+        }
+
+        .step-content p {
+            margin-bottom: 15px;
+            color: #ccd6f6;
+        }
+
+        .step-content h3 {
+            margin: 25px 0 15px;
+            color: #d4af37;
+            font-size: 18px;
+        }
+
+        .step-content h4 {
+            margin: 20px 0 10px;
+            color: #8892b0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .what-this-does {
+            background: rgba(88, 166, 255, 0.08);
+            border-left: 3px solid #58a6ff;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .what-this-does-title {
+            font-weight: 600;
+            color: #58a6ff;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .what-this-does p {
+            margin: 0;
+            color: #a8b2d1;
+            font-size: 14px;
+        }
+
+        .code-block {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 15px 20px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            margin: 15px 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            color: #58a6ff;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #238636;
+            border: none;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #2ea043;
+        }
+
+        .copy-btn.copied {
+            background: #d4af37;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37, #f4d03f);
+            color: #1a1a2e;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #d4af37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .progress-dot.completed {
+            background: #238636;
+        }
+
+        .info-box {
+            background: rgba(88, 166, 255, 0.1);
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+
+        .info-box.warning {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .info-box.success {
+            background: rgba(35, 134, 54, 0.1);
+            border-color: rgba(35, 134, 54, 0.3);
+        }
+
+        .info-box-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .download-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37, #f4d03f);
+            color: #1a1a2e;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+
+        .download-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .troubleshooting {
+            background: rgba(248, 81, 73, 0.08);
+            border: 1px solid rgba(248, 81, 73, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .troubleshooting-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .troubleshooting-header h3 {
+            color: #f85149;
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .troubleshooting-toggle {
+            background: rgba(248, 81, 73, 0.2);
+            border: none;
+            color: #f85149;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+
+        .troubleshooting-toggle.open {
+            transform: rotate(180deg);
+        }
+
+        .troubleshooting-content {
+            display: none;
+        }
+
+        .troubleshooting-content.open {
+            display: block;
+        }
+
+        .trouble-item {
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .trouble-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .trouble-problem {
+            color: #f85149;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .trouble-solution {
+            color: #8b949e;
+            margin-bottom: 10px;
+        }
+
+        .trouble-solution strong {
+            color: #ccd6f6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #ccd6f6;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .platform-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .terminal-demo {
+            background: #0d1117;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .terminal-header {
+            background: #161b22;
+            padding: 10px 15px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .terminal-line {
+            margin: 5px 0;
+        }
+
+        .terminal-prompt {
+            color: #238636;
+        }
+
+        .terminal-command {
+            color: #58a6ff;
+        }
+
+        .terminal-output {
+            color: #8b949e;
+        }
+
+        .celebrate {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .celebrate .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .celebrate h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #d4af37;
+        }
+
+        .checklist {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            padding-left: 35px;
+            position: relative;
+            color: #ccd6f6;
+        }
+
+        .checklist li::before {
+            content: "○";
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+            font-size: 18px;
+        }
+
+        .checklist li.done::before {
+            content: "✓";
+            color: #238636;
+        }
+
+        .github-section {
+            background: rgba(36, 41, 46, 0.5);
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .github-section h4 {
+            color: #f0f6fc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .numbered-list {
+            counter-reset: step-counter;
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .numbered-list li {
+            counter-increment: step-counter;
+            padding: 10px 0 10px 45px;
+            position: relative;
+            color: #ccd6f6;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .numbered-list li:last-child {
+            border-bottom: none;
+        }
+
+        .numbered-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 28px;
+            height: 28px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #d4af37;
+        }
+
+        .sudo-warning {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px dashed #d4af37;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .sudo-warning-title {
+            font-weight: 600;
+            color: #d4af37;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🏠</div>
+            <h1>Tailored Solutions Website Installer</h1>
+            <p class="subtitle">Set up your home improvements website in minutes - no coding experience needed!</p>
+        </div>
+
+        <!-- Platform Selection -->
+        <div class="platform-selector" id="platformSelector">
+            <div class="platform-btn" data-platform="mac" onclick="selectPlatform('mac')">
+                <div class="icon">🍎</div>
+                <div class="name">macOS</div>
+            </div>
+            <div class="platform-btn" data-platform="windows" onclick="selectPlatform('windows')">
+                <div class="icon">🪟</div>
+                <div class="name">Windows</div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-dot active" data-step="1"></div>
+            <div class="progress-dot" data-step="2"></div>
+            <div class="progress-dot" data-step="3"></div>
+            <div class="progress-dot" data-step="4"></div>
+            <div class="progress-dot" data-step="5"></div>
+            <div class="progress-dot" data-step="6"></div>
+            <div class="progress-dot" data-step="7"></div>
+            <div class="progress-dot" data-step="8"></div>
+        </div>
+
+        <div class="steps-container" id="stepsContainer">
+            <!-- Step 1: Prerequisites -->
+            <div class="step active" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Install Prerequisites</div>
+                </div>
+                <div class="step-content">
+                    <p>Before we begin, you'll need to install a few tools. These are standard, safe programs used by millions of developers worldwide.</p>
+
+                    <!-- Mac Instructions -->
+                    <div id="macPrereqs" class="hidden">
+                        <h3>Step 1.1: Install Homebrew (Package Manager)</h3>
+
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What is Homebrew?</div>
+                            <p>Homebrew is like an "App Store" for developer tools on Mac. Instead of downloading installers from websites, you can install programs with simple commands. It's trusted by millions of Mac users.</p>
+                        </div>
+
+                        <p>Open <strong>Terminal</strong> (press <code>Cmd + Space</code>, type "Terminal", press Enter) and paste this command:</p>
+                        <div class="code-block">
+                            <code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What this command does</div>
+                            <p>This downloads and runs the official Homebrew installer script. It will ask for your Mac password (you won't see it as you type - that's normal for security). The installation takes about 5 minutes.</p>
+                        </div>
+
+                        <h3>Step 1.2: Install Node.js</h3>
+
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What is Node.js?</div>
+                            <p>Node.js is the "engine" that runs your website on your computer. Think of it like how you need a DVD player to watch a DVD - you need Node.js to run modern websites locally.</p>
+                        </div>
+
+                        <p>After Homebrew finishes, run this command:</p>
+                        <div class="code-block">
+                            <code>brew install node</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+
+                        <h3>Step 1.3: Install Git</h3>
+
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What is Git?</div>
+                            <p>Git is a tool for downloading and managing code. It's how we'll download your website files. Every major tech company uses Git.</p>
+                        </div>
+
+                        <div class="code-block">
+                            <code>brew install git</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+
+                        <!-- Mac Troubleshooting -->
+                        <div class="troubleshooting">
+                            <div class="troubleshooting-header" onclick="toggleTroubleshooting(this)">
+                                <span>🔧</span>
+                                <h3>Troubleshooting - Click if you have issues</h3>
+                                <button class="troubleshooting-toggle">▼</button>
+                            </div>
+                            <div class="troubleshooting-content">
+                                <div class="trouble-item">
+                                    <div class="trouble-problem">❌ "Permission denied" or "Operation not permitted"</div>
+                                    <div class="trouble-solution">
+                                        <strong>Solution:</strong> Add <code>sudo</code> before the command. This gives administrator privileges.
+                                    </div>
+                                    <div class="code-block">
+                                        <code>sudo brew install node</code>
+                                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                    </div>
+                                    <p style="color: #8b949e; font-size: 13px; margin-top: 10px;">You'll be asked for your Mac password. Characters won't show as you type - that's normal!</p>
+                                </div>
+
+                                <div class="trouble-item">
+                                    <div class="trouble-problem">❌ "brew: command not found"</div>
+                                    <div class="trouble-solution">
+                                        <strong>Solution:</strong> Homebrew isn't in your path yet. Run this command, then try again:
+                                    </div>
+                                    <div class="code-block">
+                                        <code>eval "$(/opt/homebrew/bin/brew shellenv)"</code>
+                                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                    </div>
+                                    <p style="color: #8b949e; font-size: 13px; margin-top: 10px;">For Intel Macs, use: <code>eval "$(/usr/local/bin/brew shellenv)"</code></p>
+                                </div>
+
+                                <div class="trouble-item">
+                                    <div class="trouble-problem">❌ "Xcode Command Line Tools" popup appears</div>
+                                    <div class="trouble-solution">
+                                        <strong>Solution:</strong> Click "Install" in the popup and wait for it to finish. This installs essential Mac developer tools. It can take 10-15 minutes.
+                                    </div>
+                                </div>
+
+                                <div class="trouble-item">
+                                    <div class="trouble-problem">❌ Installation seems frozen/stuck</div>
+                                    <div class="trouble-solution">
+                                        <strong>Solution:</strong> Don't worry! Some installations take time. Wait at least 10 minutes before assuming it's stuck. If truly frozen, press <code>Ctrl + C</code> to cancel and try again.
+                                    </div>
+                                </div>
+
+                                <div class="trouble-item">
+                                    <div class="trouble-problem">❌ "Your Xcode is too outdated"</div>
+                                    <div class="trouble-solution">
+                                        <strong>Solution:</strong> Update Xcode Command Line Tools:
+                                    </div>
+                                    <div class="code-block">
+                                        <code>sudo rm -rf /Library/Developer/CommandLineTools && xcode-select --install</code>
+                                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Windows Instructions -->
+                    <div id="windowsPrereqs" class="hidden">
+                        <h3>Step 1.1: Install Node.js</h3>
+
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What is Node.js?</div>
+                            <p>Node.js is the "engine" that runs your website on your computer. Think of it like how you need a DVD player to watch a DVD - you need Node.js to run modern websites locally.</p>
+                        </div>
+
+                        <p>Download and install Node.js from the official website:</p>
+                        <a href="https://nodejs.org/en/download/" target="_blank" class="download-link">📥 Download Node.js (LTS Version)</a>
+
+                        <ol class="numbered-list">
+                            <li>Click the download link above</li>
+                            <li>Choose the <strong>LTS</strong> (Long Term Support) version - it's more stable</li>
+                            <li>Run the downloaded <code>.msi</code> installer file</li>
+                            <li>Click "Next" through all the prompts - default settings are fine</li>
+                            <li>Click "Install" and wait for it to finish</li>
+                        </ol>
+
+                        <h3>Step 1.2: Install Git</h3>
+
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What is Git?</div>
+                            <p>Git is a tool for downloading and managing code. It's how we'll download your website files. Every major tech company uses Git.</p>
+                        </div>
+
+                        <a href="https://git-scm.com/download/win" target="_blank" class="download-link">📥 Download Git for Windows</a>
+
+                        <ol class="numbered-list">
+                            <li>Click the download link above (download starts automatically)</li>
+                            <li>Run the downloaded installer</li>
+                            <li>Click "Next" through all prompts - default settings are perfect</li>
+                            <li>On "Choosing the default editor" - you can leave it as Vim or select Notepad</li>
+                            <li>Click "Install" and wait for it to finish</li>
+                        </ol>
+
+                        <!-- Windows Troubleshooting -->
+                        <div class="troubleshooting">
+                            <div class="troubleshooting-header" onclick="toggleTroubleshooting(this)">
+                                <span>🔧</span>
+                                <h3>Troubleshooting - Click if you have issues</h3>
+                                <button class="troubleshooting-toggle">▼</button>
+                            </div>
+                            <div class="troubleshooting-content">
+                                <div class="trouble-item">
+                                    <div class="trouble-problem">❌ "Windows protected your PC" warning</div>
+                                    <div class="trouble-solution">
+                                        <strong>Solution:</strong> This is normal for downloaded installers. Click "More info", then click "Run anyway". Node.js and Git are safe, trusted programs.
+                                    </div>
+                                </div>
+
+                                <div class="trouble-item">
+                                    <div class="trouble-problem">❌ "Access denied" or need administrator rights</div>
+                                    <div class="trouble-solution">
+                                        <strong>Solution:</strong> Right-click the installer and select "Run as administrator".
+                                    </div>
+                                </div>
+
+                                <div class="trouble-item">
+                                    <div class="trouble-problem">❌ Commands not found after installation</div>
+                                    <div class="trouble-solution">
+                                        <strong>Solution:</strong> Close ALL Command Prompt windows and open a fresh one. Windows needs a restart of the terminal to recognize new programs.
+                                    </div>
+                                </div>
+
+                                <div class="trouble-item">
+                                    <div class="trouble-problem">❌ Using PowerShell instead of Command Prompt</div>
+                                    <div class="trouble-solution">
+                                        <strong>Solution:</strong> PowerShell works too, but if you have issues, try Command Prompt instead. Search for "cmd" in the Start menu.
+                                    </div>
+                                </div>
+
+                                <div class="trouble-item">
+                                    <div class="trouble-problem">❌ Antivirus blocking installation</div>
+                                    <div class="trouble-solution">
+                                        <strong>Solution:</strong> Temporarily disable your antivirus, install the programs, then re-enable it. Node.js and Git are safe - they're used by millions of developers.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box warning" style="margin-top: 25px;">
+                        <div class="info-box-title">⚠️ Important: Restart Your Terminal</div>
+                        <p>After installing everything, <strong>close and reopen your terminal/command prompt</strong> before continuing. This ensures the new programs are recognized.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Verify Installation -->
+            <div class="step" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Verify Installation</div>
+                </div>
+                <div class="step-content">
+                    <p>Let's make sure everything was installed correctly. Open a <strong id="terminalName">new terminal</strong> and run these commands one at a time:</p>
+
+                    <h3>Check Node.js</h3>
+                    <div class="code-block">
+                        <code>node --version</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What you should see</div>
+                        <p>A version number like <code style="color: #238636;">v20.10.0</code> or <code style="color: #238636;">v22.5.0</code>. Any version starting with v18 or higher is good!</p>
+                    </div>
+
+                    <h3>Check npm (comes with Node.js)</h3>
+                    <div class="code-block">
+                        <code>npm --version</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What you should see</div>
+                        <p>A version number like <code style="color: #238636;">10.2.0</code>. npm is the "package manager" that installs website dependencies.</p>
+                    </div>
+
+                    <h3>Check Git</h3>
+                    <div class="code-block">
+                        <code>git --version</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What you should see</div>
+                        <p>Something like <code style="color: #238636;">git version 2.42.0</code>. Any version 2.x is fine!</p>
+                    </div>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ All Good?</div>
+                        <p>If you see version numbers for all three commands, you're ready to continue!</p>
+                    </div>
+
+                    <!-- Verification Troubleshooting -->
+                    <div class="troubleshooting">
+                        <div class="troubleshooting-header" onclick="toggleTroubleshooting(this)">
+                            <span>🔧</span>
+                            <h3>Troubleshooting - Click if commands don't work</h3>
+                            <button class="troubleshooting-toggle">▼</button>
+                        </div>
+                        <div class="troubleshooting-content">
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "command not found" or "'node' is not recognized"</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution 1:</strong> Did you close and reopen the terminal after installing? The terminal needs to be restarted to find new programs.
+                                </div>
+                                <div class="trouble-solution" style="margin-top: 10px;">
+                                    <strong>Solution 2:</strong> The program might not be in your system PATH. Try reinstalling Node.js/Git and make sure to check any options about "Add to PATH" during installation.
+                                </div>
+                            </div>
+
+                            <div class="trouble-item" id="macPathTrouble">
+                                <div class="trouble-problem">❌ Mac: "zsh: command not found: node"</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Add Node to your shell profile. Run these commands:
+                                </div>
+                                <div class="code-block">
+                                    <code>echo 'export PATH="/opt/homebrew/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ Shows an old version</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> You might have an older version installed. That's usually fine! If you need to update, reinstall from the download links in Step 1.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Create GitHub Account -->
+            <div class="step" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Set Up GitHub Account</div>
+                </div>
+                <div class="step-content">
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What is GitHub?</div>
+                        <p>GitHub is like Google Drive, but for code. It stores your website files online and lets you download them to any computer. It also keeps track of all changes you make, so you can always go back if something breaks.</p>
+                    </div>
+
+                    <div class="github-section">
+                        <h4>📋 Create a Free GitHub Account</h4>
+                        <ol class="numbered-list">
+                            <li>Go to <a href="https://github.com" target="_blank" style="color: #58a6ff;">github.com</a> and click "Sign up"</li>
+                            <li>Enter your email address</li>
+                            <li>Create a password (save this somewhere safe!)</li>
+                            <li>Choose a username (this will be visible, e.g., "tailored-solutions-uk")</li>
+                            <li>Complete the verification puzzle</li>
+                            <li>Check your email and click the verification link</li>
+                        </ol>
+                    </div>
+
+                    <h3>Configure Git with Your Details</h3>
+                    <p>Tell Git who you are (this labels your changes). Replace with your actual name and email:</p>
+
+                    <div class="code-block">
+                        <code>git config --global user.name "Your Name"</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What this does</div>
+                        <p>This tells Git your name, so when you make changes they're labeled with who made them. Replace "Your Name" with your actual name.</p>
+                    </div>
+
+                    <div class="code-block">
+                        <code>git config --global user.email "your.email@example.com"</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What this does</div>
+                        <p>This sets your email for Git. Use the same email you used for GitHub. Replace the example with your actual email.</p>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-box-title">💡 Already have a GitHub account?</div>
+                        <p>Great! Just make sure you've run the two <code>git config</code> commands above with the email associated with your GitHub account.</p>
+                    </div>
+
+                    <!-- GitHub Troubleshooting -->
+                    <div class="troubleshooting">
+                        <div class="troubleshooting-header" onclick="toggleTroubleshooting(this)">
+                            <span>🔧</span>
+                            <h3>Troubleshooting - Click if you have issues</h3>
+                            <button class="troubleshooting-toggle">▼</button>
+                        </div>
+                        <div class="troubleshooting-content">
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "Please tell me who you are" error later</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> You forgot to configure Git. Run the two <code>git config</code> commands above.
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ Can't remember if I configured Git</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Check your current settings:
+                                </div>
+                                <div class="code-block">
+                                    <code>git config --global --list</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                                <p style="color: #8b949e; font-size: 13px; margin-top: 10px;">This shows your current Git configuration. Look for user.name and user.email.</p>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ GitHub asking for username/password when cloning</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> GitHub now uses "Personal Access Tokens" instead of passwords. When asked for a password, use a token instead. Create one at: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Download the Website -->
+            <div class="step" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Download the Website</div>
+                </div>
+                <div class="step-content">
+                    <p>Now we'll download the website files to your computer.</p>
+
+                    <h3>Navigate to Your Documents Folder</h3>
+                    <div id="macDownload" class="hidden">
+                        <div class="code-block">
+                            <code>cd ~/Documents</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What this does</div>
+                            <p><code>cd</code> means "change directory" (like opening a folder). <code>~</code> means your home folder. So this opens your Documents folder in the terminal.</p>
+                        </div>
+                    </div>
+
+                    <div id="windowsDownload" class="hidden">
+                        <div class="code-block">
+                            <code>cd %USERPROFILE%\Documents</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What this does</div>
+                            <p><code>cd</code> means "change directory" (like opening a folder). <code>%USERPROFILE%</code> is your user folder. So this opens your Documents folder in Command Prompt.</p>
+                        </div>
+                    </div>
+
+                    <h3>Clone (Download) the Website</h3>
+                    <div class="code-block">
+                        <code>git clone https://github.com/YOUR-USERNAME/tailored-solutions-website.git</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What this does</div>
+                        <p><code>git clone</code> downloads a complete copy of the website from GitHub. Replace <code>YOUR-USERNAME</code> with the GitHub username where the website is stored.</p>
+                    </div>
+
+                    <h3>Enter the Website Folder</h3>
+                    <div class="code-block">
+                        <code>cd tailored-solutions-website</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What this does</div>
+                        <p>This enters the newly downloaded folder. All future commands should be run from inside this folder.</p>
+                    </div>
+
+                    <div class="terminal-demo">
+                        <div class="terminal-header">
+                            <div class="terminal-dot red"></div>
+                            <div class="terminal-dot yellow"></div>
+                            <div class="terminal-dot green"></div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-command">git clone https://github.com/...</span></div>
+                            <div class="terminal-line"><span class="terminal-output">Cloning into 'tailored-solutions-website'...</span></div>
+                            <div class="terminal-line"><span class="terminal-output">remote: Enumerating objects: 150, done.</span></div>
+                            <div class="terminal-line"><span class="terminal-output">remote: Total 150 (delta 0), reused 0</span></div>
+                            <div class="terminal-line"><span class="terminal-output">Receiving objects: 100% (150/150), done.</span></div>
+                            <div class="terminal-line"><span class="terminal-output">Resolving deltas: 100% (45/45), done.</span></div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-box-title">📁 Where are my files?</div>
+                        <p id="fileLocation">Your website files are now in: ~/Documents/tailored-solutions-website</p>
+                        <p style="margin-top: 10px; color: #8892b0;">You can open this folder in Finder/File Explorer to see all the website files!</p>
+                    </div>
+
+                    <!-- Download Troubleshooting -->
+                    <div class="troubleshooting">
+                        <div class="troubleshooting-header" onclick="toggleTroubleshooting(this)">
+                            <span>🔧</span>
+                            <h3>Troubleshooting - Click if you have issues</h3>
+                            <button class="troubleshooting-toggle">▼</button>
+                        </div>
+                        <div class="troubleshooting-content">
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "repository not found" error</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Double-check the repository URL. Make sure you've replaced YOUR-USERNAME with the actual GitHub username, and the repository name is spelled correctly.
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "Permission denied" or authentication error</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> If the repository is private, you need to log in. GitHub will prompt you. Use your GitHub username and a Personal Access Token (not your password).
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "fatal: destination path already exists"</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> You've already downloaded the website before. Either delete the existing folder, or just <code>cd</code> into it:
+                                </div>
+                                <div class="code-block">
+                                    <code>cd tailored-solutions-website</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ Clone is very slow or times out</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> This can happen with slow internet. Try again, or if on a corporate network, you might need to configure proxy settings.
+                                </div>
+                            </div>
+
+                            <div class="trouble-item" id="macSudoClone">
+                                <div class="trouble-problem">❌ Mac: "Permission denied" even with correct credentials</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Try with sudo (administrator mode):
+                                </div>
+                                <div class="code-block">
+                                    <code>sudo git clone https://github.com/YOUR-USERNAME/tailored-solutions-website.git</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Install Dependencies -->
+            <div class="step" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Install Dependencies</div>
+                </div>
+                <div class="step-content">
+                    <p>Now we need to install all the packages the website needs to run.</p>
+
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What are dependencies?</div>
+                        <p>Modern websites are built using many pre-made building blocks (like Lego pieces). These are called "dependencies" or "packages". This step downloads all those building blocks so your website can work properly.</p>
+                    </div>
+
+                    <h3>Install All Packages</h3>
+                    <div class="code-block">
+                        <code>npm install</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What this does</div>
+                        <p><code>npm</code> is the Node Package Manager. <code>install</code> tells it to download everything listed in the <code>package.json</code> file. This can download hundreds of small files!</p>
+                    </div>
+
+                    <div class="terminal-demo">
+                        <div class="terminal-header">
+                            <div class="terminal-dot red"></div>
+                            <div class="terminal-dot yellow"></div>
+                            <div class="terminal-dot green"></div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-command">npm install</span></div>
+                            <div class="terminal-line"><span class="terminal-output"></span></div>
+                            <div class="terminal-line"><span class="terminal-output">added 523 packages in 45s</span></div>
+                            <div class="terminal-line"><span class="terminal-output"></span></div>
+                            <div class="terminal-line"><span class="terminal-output">145 packages are looking for funding</span></div>
+                            <div class="terminal-line"><span class="terminal-output">  run `npm fund` for details</span></div>
+                        </div>
+                    </div>
+
+                    <div class="info-box warning">
+                        <div class="info-box-title">⏳ Please Wait - This Takes Time!</div>
+                        <p>This step can take <strong>2-10 minutes</strong> depending on your internet speed. You'll see lots of text scrolling by - that's normal! Wait until you see the command prompt again before continuing.</p>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-box-title">💡 "Vulnerabilities" warnings are usually OK</div>
+                        <p>You might see warnings about "vulnerabilities". For a development website, these are usually not a concern. They're warnings about the development tools, not your actual website.</p>
+                    </div>
+
+                    <!-- npm Troubleshooting -->
+                    <div class="troubleshooting">
+                        <div class="troubleshooting-header" onclick="toggleTroubleshooting(this)">
+                            <span>🔧</span>
+                            <h3>Troubleshooting - Click if you have issues</h3>
+                            <button class="troubleshooting-toggle">▼</button>
+                        </div>
+                        <div class="troubleshooting-content">
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "EACCES: permission denied" error</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution (Mac/Linux):</strong> Use sudo to run with administrator privileges:
+                                </div>
+                                <div class="code-block">
+                                    <code>sudo npm install</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                                <div class="sudo-warning">
+                                    <div class="sudo-warning-title">🔐 About sudo</div>
+                                    <p style="color: #ccd6f6; margin: 0;"><code>sudo</code> runs commands as an administrator. You'll need to enter your computer password. Use it when you see "permission denied" errors.</p>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "npm ERR! network" or timeout errors</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Your internet connection might be slow or interrupted. Try again:
+                                </div>
+                                <div class="code-block">
+                                    <code>npm cache clean --force && npm install</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "npm ERR! code ENOENT - no such file or directory"</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> You're probably not in the right folder. Make sure you're inside the website folder:
+                                </div>
+                                <div class="code-block">
+                                    <code>cd ~/Documents/tailored-solutions-website && npm install</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "gyp ERR!" or "node-gyp" errors</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Some packages need to be compiled. On Mac, make sure Xcode tools are installed:
+                                </div>
+                                <div class="code-block">
+                                    <code>xcode-select --install</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                                <p style="color: #8b949e; font-size: 13px; margin-top: 10px;">On Windows, you might need to install Windows Build Tools. This is rare though.</p>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ Stuck on "sill idealTree" or similar</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> npm is calculating dependencies - this can take a few minutes. Wait at least 5 minutes before assuming it's stuck. If truly frozen, press <code>Ctrl + C</code> and try again.
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "ERESOLVE unable to resolve dependency tree"</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> There's a package version conflict. Try this:
+                                </div>
+                                <div class="code-block">
+                                    <code>npm install --legacy-peer-deps</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Configure Your Business -->
+            <div class="step" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Configure Your Business</div>
+                </div>
+                <div class="step-content">
+                    <p>Enter your business details below. This will customize the website for your company.</p>
+
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What happens with this information?</div>
+                        <p>These details are saved in a configuration file on YOUR computer only. They customize the website with your business name, contact details, etc. You can change them anytime through the admin panel later.</p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Business Name</label>
+                            <input type="text" id="businessName" placeholder="e.g., Tailored Solutions" value="Tailored Solutions">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="text" id="businessPhone" placeholder="e.g., 07123 456789">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="businessEmail" placeholder="e.g., info@tailoredsolutions.co.uk">
+                        </div>
+                        <div class="form-group">
+                            <label>Location/City</label>
+                            <input type="text" id="businessLocation" placeholder="e.g., London, UK">
+                        </div>
+                    </div>
+
+                    <h3>Create Your Configuration File</h3>
+                    <p>Copy and run this command to save your settings:</p>
+
+                    <div id="macConfig" class="hidden">
+                        <div id="configCommandMac" class="code-block">
+                            <code>cat > .env.local << 'EOF'
+NEXT_PUBLIC_BUSINESS_NAME="Tailored Solutions"
+NEXT_PUBLIC_BUSINESS_PHONE=""
+NEXT_PUBLIC_BUSINESS_EMAIL=""
+NEXT_PUBLIC_BUSINESS_LOCATION=""
+EOF</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What this does</div>
+                            <p>This creates a file called <code>.env.local</code> containing your business settings. The website reads this file to display your information.</p>
+                        </div>
+                    </div>
+
+                    <div id="windowsConfig" class="hidden">
+                        <p>On Windows, we'll create the file step by step:</p>
+                        <div class="code-block">
+                            <code>echo NEXT_PUBLIC_BUSINESS_NAME="Tailored Solutions" > .env.local</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div id="configCommandWin2" class="code-block">
+                            <code>echo NEXT_PUBLIC_BUSINESS_PHONE="" >> .env.local</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div id="configCommandWin3" class="code-block">
+                            <code>echo NEXT_PUBLIC_BUSINESS_EMAIL="" >> .env.local</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div id="configCommandWin4" class="code-block">
+                            <code>echo NEXT_PUBLIC_BUSINESS_LOCATION="" >> .env.local</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What these do</div>
+                            <p>Each command adds a line to your configuration file. <code>></code> creates the file, <code>>></code> adds to it.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-box-title">💡 You can change these later!</div>
+                        <p>Don't worry about getting everything perfect now. You can edit all of these settings through the admin panel at <code>/admin</code> once the website is running.</p>
+                    </div>
+
+                    <!-- Config Troubleshooting -->
+                    <div class="troubleshooting">
+                        <div class="troubleshooting-header" onclick="toggleTroubleshooting(this)">
+                            <span>🔧</span>
+                            <h3>Troubleshooting - Click if you have issues</h3>
+                            <button class="troubleshooting-toggle">▼</button>
+                        </div>
+                        <div class="troubleshooting-content">
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "Permission denied" when creating file</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Try with sudo (Mac) or run Command Prompt as Administrator (Windows).
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ Want to manually create the file?</div>
+                                <div class="trouble-solution">
+                                    <strong>Alternative:</strong> Create a file named <code>.env.local</code> (note the dot at the start) in the website folder using any text editor. Add these lines:
+                                </div>
+                                <div class="code-block" style="white-space: pre-wrap;">
+                                    <code>NEXT_PUBLIC_BUSINESS_NAME="Your Business Name"
+NEXT_PUBLIC_BUSINESS_PHONE="Your Phone"
+NEXT_PUBLIC_BUSINESS_EMAIL="your@email.com"
+NEXT_PUBLIC_BUSINESS_LOCATION="Your City"</code>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ Can't see the .env.local file in Finder/Explorer</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Files starting with a dot are hidden by default. On Mac, press <code>Cmd + Shift + .</code> in Finder to show hidden files. On Windows, check "Show hidden files" in folder options.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7: Launch Your Website -->
+            <div class="step" data-step="7">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title">Launch Your Website!</div>
+                </div>
+                <div class="step-content">
+                    <div class="celebrate">
+                        <div class="icon">🎉</div>
+                        <h2>You're Almost Done!</h2>
+                        <p style="color: #8892b0; margin-bottom: 30px;">Just one more command to start your website</p>
+                    </div>
+
+                    <h3>Start the Development Server</h3>
+                    <div class="code-block">
+                        <code>npm run dev</code>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What this does</div>
+                        <p>This starts a local web server on your computer. It compiles your website and makes it viewable in your browser. The terminal will stay open and show you activity as you browse the site.</p>
+                    </div>
+
+                    <div class="terminal-demo">
+                        <div class="terminal-header">
+                            <div class="terminal-dot red"></div>
+                            <div class="terminal-dot yellow"></div>
+                            <div class="terminal-dot green"></div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-command">npm run dev</span></div>
+                            <div class="terminal-line"><span class="terminal-output"></span></div>
+                            <div class="terminal-line"><span class="terminal-output">   ▲ Next.js 14.0.0</span></div>
+                            <div class="terminal-line"><span class="terminal-output">   - Local:        http://localhost:3000</span></div>
+                            <div class="terminal-line"><span class="terminal-output">   - Network:      http://192.168.1.100:3000</span></div>
+                            <div class="terminal-line"><span class="terminal-output"></span></div>
+                            <div class="terminal-line"><span class="terminal-output" style="color: #238636;"> ✓ Ready in 2.5s</span></div>
+                        </div>
+                    </div>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">🌐 View Your Website</div>
+                        <p>Open your web browser and go to: <a href="http://localhost:3000" target="_blank" style="color: #58a6ff; font-weight: bold;">http://localhost:3000</a></p>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-box-title">🔐 Access Your Admin Panel</div>
+                        <p>Manage your website at: <a href="http://localhost:3000/admin" target="_blank" style="color: #58a6ff;">http://localhost:3000/admin</a></p>
+                        <p style="margin-top: 10px;">Default login: <code>admin@tailoredsolutions.co.uk</code> / <code>changeme123</code></p>
+                        <p style="margin-top: 5px; color: #8892b0; font-size: 13px;">⚠️ Change this password immediately in the admin settings!</p>
+                    </div>
+
+                    <h3>📋 Quick Reference</h3>
+                    <ul class="checklist">
+                        <li><strong>Start website:</strong> <code>npm run dev</code></li>
+                        <li><strong>Stop website:</strong> Press <code>Ctrl + C</code> in the terminal</li>
+                        <li><strong>Restart website:</strong> Stop it, then run <code>npm run dev</code> again</li>
+                    </ul>
+
+                    <div class="info-box warning">
+                        <div class="info-box-title">📌 Important: Keep Terminal Open</div>
+                        <p>The website only runs while the terminal window is open and <code>npm run dev</code> is running. Closing the terminal stops the website.</p>
+                    </div>
+
+                    <h3>🚀 Next Steps</h3>
+                    <ul class="checklist">
+                        <li>Log into the admin panel and change your password</li>
+                        <li>Update your business information through the CMS</li>
+                        <li>Add your own images and content</li>
+                        <li>When ready, deploy to a live website (Netlify, Vercel, etc.)</li>
+                    </ul>
+
+                    <!-- Launch Troubleshooting -->
+                    <div class="troubleshooting">
+                        <div class="troubleshooting-header" onclick="toggleTroubleshooting(this)">
+                            <span>🔧</span>
+                            <h3>Troubleshooting - Click if you have issues</h3>
+                            <button class="troubleshooting-toggle">▼</button>
+                        </div>
+                        <div class="troubleshooting-content">
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "Port 3000 is already in use"</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Another program is using that port. Either close it, or start on a different port:
+                                </div>
+                                <div class="code-block">
+                                    <code>npm run dev -- -p 3001</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                                <p style="color: #8b949e; font-size: 13px; margin-top: 10px;">Then visit <code>http://localhost:3001</code> instead.</p>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ Website loads but looks broken (no styles)</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Try a hard refresh: <code>Cmd + Shift + R</code> (Mac) or <code>Ctrl + Shift + R</code> (Windows). If that doesn't work, stop the server and run:
+                                </div>
+                                <div class="code-block">
+                                    <code>npm run build && npm run dev</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "Module not found" or similar errors</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Some packages might be missing. Delete node_modules and reinstall:
+                                </div>
+                                <div class="code-block" id="cleanInstallMac">
+                                    <code>rm -rf node_modules && npm install</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                                <div class="code-block hidden" id="cleanInstallWin">
+                                    <code>rmdir /s /q node_modules && npm install</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "EACCES: permission denied" when starting</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution (Mac):</strong> Fix npm permissions:
+                                </div>
+                                <div class="code-block">
+                                    <code>sudo chown -R $(whoami) ~/.npm</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ Can't access localhost:3000 in browser</div>
+                                <div class="trouble-solution">
+                                    <strong>Solutions:</strong>
+                                    <ul style="margin-top: 10px; margin-left: 20px; color: #8b949e;">
+                                        <li>Make sure you typed the URL correctly: <code>http://localhost:3000</code></li>
+                                        <li>Check that the terminal still shows the server running</li>
+                                        <li>Try a different browser</li>
+                                        <li>Disable any VPN or proxy you might be using</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 8: Deploy to Production -->
+            <div class="step" data-step="8">
+                <div class="step-header">
+                    <div class="step-number">8</div>
+                    <div class="step-title">Deploy to Production (Go Live!)</div>
+                </div>
+                <div class="step-content">
+                    <div class="celebrate">
+                        <div class="icon">🚀</div>
+                        <h2>Make Your Website Live!</h2>
+                        <p style="color: #8892b0; margin-bottom: 30px;">Deploy your website so anyone in the world can visit it</p>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-box-title">🎯 What We're Doing</div>
+                        <p>Right now, your website only works on your computer. In this step, we'll put it on the internet so customers can visit it using your own domain name (like <code>www.yourbusiness.com</code>).</p>
+                    </div>
+
+                    <h3>Choose Your Hosting Platform</h3>
+                    <p>We recommend <strong>Netlify</strong> - it's free, fast, and easy to use. Other options include Vercel and Railway.</p>
+
+                    <div class="github-section" style="margin: 25px 0;">
+                        <h4 style="color: #d4af37; margin-bottom: 15px;">📦 Option 1: Netlify (Recommended - Free)</h4>
+
+                        <h4 style="margin-top: 20px;">Step 8.1: Create a Netlify Account</h4>
+                        <ol class="numbered-list">
+                            <li>Go to <a href="https://netlify.com" target="_blank" style="color: #58a6ff;">netlify.com</a></li>
+                            <li>Click "Sign up" in the top right</li>
+                            <li>Choose "Sign up with GitHub" (use the GitHub account you created earlier)</li>
+                            <li>Authorize Netlify to access your GitHub</li>
+                        </ol>
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What is Netlify?</div>
+                            <p>Netlify is a free hosting service that stores your website files on powerful servers around the world. When someone visits your website, they get served files from the closest server, making it fast everywhere.</p>
+                        </div>
+
+                        <h4 style="margin-top: 25px;">Step 8.2: Push Your Code to GitHub</h4>
+                        <p>First, we need to upload your website code to GitHub so Netlify can access it.</p>
+
+                        <div class="code-block">
+                            <code>cd ~/Documents/tailored-solutions-website</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What this does</div>
+                            <p>Navigates to your website folder.</p>
+                        </div>
+
+                        <div class="code-block">
+                            <code>git add .</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What this does</div>
+                            <p>Stages all your files for upload. The dot (.) means "all files in this folder".</p>
+                        </div>
+
+                        <div class="code-block">
+                            <code>git commit -m "Initial website setup"</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What this does</div>
+                            <p>Creates a "snapshot" of your website with a descriptive message. Think of it like saving a version of a document.</p>
+                        </div>
+
+                        <div class="code-block">
+                            <code>git branch -M main</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What this does</div>
+                            <p>Ensures your main branch is named "main" (GitHub's standard).</p>
+                        </div>
+
+                        <div class="code-block">
+                            <code>git remote add origin https://github.com/YOUR-USERNAME/tailored-solutions-website.git</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What this does</div>
+                            <p>Links your local folder to your GitHub repository. <strong>Replace YOUR-USERNAME</strong> with your actual GitHub username!</p>
+                        </div>
+                        <div class="info-box warning" style="margin: 10px 0;">
+                            <div class="info-box-title">⚠️ First, create the repository on GitHub!</div>
+                            <p>Go to <a href="https://github.com/new" target="_blank" style="color: #58a6ff;">github.com/new</a>, name it <code>tailored-solutions-website</code>, and click "Create repository". Don't add any files - just create it empty.</p>
+                        </div>
+
+                        <div class="code-block">
+                            <code>git push -u origin main</code>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What this does</div>
+                            <p>Uploads all your website files to GitHub. The <code>-u</code> flag remembers this connection for future uploads.</p>
+                        </div>
+
+                        <h4 style="margin-top: 25px;">Step 8.3: Connect Netlify to GitHub</h4>
+                        <ol class="numbered-list">
+                            <li>In Netlify, click <strong>"Add new site"</strong> → <strong>"Import an existing project"</strong></li>
+                            <li>Click <strong>"Deploy with GitHub"</strong></li>
+                            <li>Find and select your <code>tailored-solutions-website</code> repository</li>
+                            <li>In the build settings:
+                                <ul style="margin-left: 20px; margin-top: 10px;">
+                                    <li><strong>Build command:</strong> <code>npm run build</code></li>
+                                    <li><strong>Publish directory:</strong> <code>.next</code></li>
+                                </ul>
+                            </li>
+                            <li>Click <strong>"Deploy site"</strong></li>
+                        </ol>
+                        <div class="what-this-does">
+                            <div class="what-this-does-title">🔍 What happens next</div>
+                            <p>Netlify will build your website (this takes 2-5 minutes). When done, you'll get a free URL like <code>random-name-123.netlify.app</code>. This is your live website!</p>
+                        </div>
+
+                        <div class="info-box success" style="margin: 20px 0;">
+                            <div class="info-box-title">✅ Automatic Updates!</div>
+                            <p>Every time you push changes to GitHub, Netlify automatically rebuilds and updates your live website. No manual deployment needed!</p>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 40px;">🌐 Connect Your Own Domain Name</h3>
+                    <p>Now let's make your website accessible at your own domain (like <code>www.yourbusiness.com</code>)</p>
+
+                    <div class="info-box">
+                        <div class="info-box-title">💡 Don't have a domain yet?</div>
+                        <p>You can buy one from providers like:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><a href="https://porkbun.com" target="_blank" style="color: #58a6ff;">Porkbun</a> - Cheap and simple</li>
+                            <li><a href="https://namecheap.com" target="_blank" style="color: #58a6ff;">Namecheap</a> - Popular choice</li>
+                            <li><a href="https://domains.google" target="_blank" style="color: #58a6ff;">Google Domains</a> - Easy to use</li>
+                            <li><a href="https://godaddy.com" target="_blank" style="color: #58a6ff;">GoDaddy</a> - Well-known provider</li>
+                        </ul>
+                        <p style="margin-top: 10px; color: #8892b0;">A .com domain typically costs £10-15/year.</p>
+                    </div>
+
+                    <h4 style="margin-top: 25px;">Step 8.4: Add Your Domain to Netlify</h4>
+                    <ol class="numbered-list">
+                        <li>In Netlify, go to <strong>Site settings</strong> → <strong>Domain management</strong></li>
+                        <li>Click <strong>"Add custom domain"</strong></li>
+                        <li>Enter your domain name (e.g., <code>yourbusiness.com</code>)</li>
+                        <li>Click <strong>"Verify"</strong> and then <strong>"Add domain"</strong></li>
+                    </ol>
+
+                    <h4 style="margin-top: 25px;">Step 8.5: Configure DNS at Your Domain Provider</h4>
+                    <p>You need to point your domain to Netlify's servers. This is done through DNS settings at wherever you bought your domain.</p>
+
+                    <div class="info-box warning">
+                        <div class="info-box-title">🔍 What is DNS?</div>
+                        <p>DNS (Domain Name System) is like a phone book for the internet. It tells browsers where to find your website when someone types your domain name. We need to add entries that say "this domain points to Netlify".</p>
+                    </div>
+
+                    <h5 style="margin-top: 20px; color: #ccd6f6;">Option A: Use Netlify DNS (Easiest)</h5>
+                    <ol class="numbered-list">
+                        <li>In Netlify domain settings, click <strong>"Set up Netlify DNS"</strong></li>
+                        <li>Netlify will give you nameservers like:
+                            <ul style="margin-left: 20px; margin-top: 10px; font-family: monospace; color: #58a6ff;">
+                                <li>dns1.p01.nsone.net</li>
+                                <li>dns2.p01.nsone.net</li>
+                                <li>dns3.p01.nsone.net</li>
+                                <li>dns4.p01.nsone.net</li>
+                            </ul>
+                        </li>
+                        <li>Go to your domain provider's website</li>
+                        <li>Find DNS or Nameserver settings (often under "Domain Settings" or "DNS Management")</li>
+                        <li>Replace the existing nameservers with Netlify's nameservers</li>
+                        <li>Save changes</li>
+                    </ol>
+
+                    <h5 style="margin-top: 25px; color: #ccd6f6;">Option B: Add DNS Records Manually</h5>
+                    <p>If you want to keep your current DNS provider:</p>
+                    <ol class="numbered-list">
+                        <li>Go to your domain provider's DNS settings</li>
+                        <li>Add these DNS records:</li>
+                    </ol>
+
+                    <table style="width: 100%; margin: 15px 0; border-collapse: collapse; font-size: 14px;">
+                        <tr style="background: rgba(212,175,55,0.2);">
+                            <th style="padding: 12px; text-align: left; border: 1px solid #333;">Type</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #333;">Name/Host</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid #333;">Value/Target</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #333;"><code>A</code></td>
+                            <td style="padding: 12px; border: 1px solid #333;"><code>@</code></td>
+                            <td style="padding: 12px; border: 1px solid #333;"><code>75.2.60.5</code></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #333;"><code>CNAME</code></td>
+                            <td style="padding: 12px; border: 1px solid #333;"><code>www</code></td>
+                            <td style="padding: 12px; border: 1px solid #333;"><code>your-site-name.netlify.app</code></td>
+                        </tr>
+                    </table>
+                    <p style="color: #8892b0; font-size: 13px;">Replace <code>your-site-name.netlify.app</code> with your actual Netlify URL.</p>
+
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What these records mean</div>
+                        <p><strong>A Record:</strong> Points your root domain (yourbusiness.com) to Netlify's server IP address.<br>
+                        <strong>CNAME Record:</strong> Points the www version (www.yourbusiness.com) to your Netlify site.</p>
+                    </div>
+
+                    <h4 style="margin-top: 25px;">Step 8.6: Enable HTTPS (Free SSL)</h4>
+                    <ol class="numbered-list">
+                        <li>Back in Netlify, go to <strong>Site settings</strong> → <strong>Domain management</strong> → <strong>HTTPS</strong></li>
+                        <li>Click <strong>"Verify DNS configuration"</strong></li>
+                        <li>Once verified, click <strong>"Provision certificate"</strong></li>
+                        <li>Netlify will automatically set up a free SSL certificate</li>
+                    </ol>
+                    <div class="what-this-does">
+                        <div class="what-this-does-title">🔍 What is HTTPS/SSL?</div>
+                        <p>HTTPS encrypts data between your visitors and your website. It shows a 🔒 padlock in the browser and is required for customer trust. Google also ranks HTTPS sites higher in search results.</p>
+                    </div>
+
+                    <div class="info-box warning" style="margin: 25px 0;">
+                        <div class="info-box-title">⏱️ DNS Changes Take Time</div>
+                        <p>DNS changes can take anywhere from 5 minutes to 48 hours to spread across the internet (this is called "propagation"). Usually it's done within 1-2 hours. Be patient!</p>
+                        <p style="margin-top: 10px;">You can check if your DNS has updated using: <a href="https://dnschecker.org" target="_blank" style="color: #58a6ff;">dnschecker.org</a></p>
+                    </div>
+
+                    <div class="celebrate" style="margin-top: 40px; padding: 30px; background: rgba(35, 134, 54, 0.2); border-radius: 12px; border: 1px solid #238636;">
+                        <div class="icon">🎊</div>
+                        <h2 style="color: #238636;">Congratulations!</h2>
+                        <p style="color: #ccd6f6;">Your website is now live on the internet! Share your domain with customers and start getting business!</p>
+                    </div>
+
+                    <h3 style="margin-top: 40px;">📋 Post-Launch Checklist</h3>
+                    <ul class="checklist">
+                        <li>Visit your domain and verify everything works</li>
+                        <li>Check the site on your phone (responsive design)</li>
+                        <li>Update admin panel password for security</li>
+                        <li>Submit your site to Google Search Console</li>
+                        <li>Set up Google Analytics (optional)</li>
+                        <li>Add your site to Google My Business</li>
+                    </ul>
+
+                    <!-- Deployment Troubleshooting -->
+                    <div class="troubleshooting">
+                        <div class="troubleshooting-header" onclick="toggleTroubleshooting(this)">
+                            <span>🔧</span>
+                            <h3>Troubleshooting - Click if you have issues</h3>
+                            <button class="troubleshooting-toggle">▼</button>
+                        </div>
+                        <div class="troubleshooting-content">
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ Netlify build fails</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Check the build logs in Netlify for specific errors. Common issues:
+                                    <ul style="margin-top: 10px; margin-left: 20px; color: #8b949e;">
+                                        <li>Missing dependencies: Make sure <code>package.json</code> has all required packages</li>
+                                        <li>Wrong Node version: Add a <code>.nvmrc</code> file with content <code>18</code></li>
+                                        <li>Environment variables: Add any required env vars in Netlify Site Settings → Environment Variables</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "git push" asks for password and fails</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> GitHub no longer accepts passwords. You need to use a Personal Access Token or SSH key. See Step 3 for GitHub authentication setup.
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ Domain shows "DNS not configured" in Netlify</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> DNS changes take time to propagate. Wait 1-2 hours and try again. Make sure you've:
+                                    <ul style="margin-top: 10px; margin-left: 20px; color: #8b949e;">
+                                        <li>Added the correct DNS records at your domain provider</li>
+                                        <li>Removed any conflicting old DNS records</li>
+                                        <li>Saved your changes at the domain provider</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "SSL certificate provisioning failed"</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> This usually means DNS isn't fully propagated yet. Wait a few hours and click "Retry" in Netlify's HTTPS settings. Also check that:
+                                    <ul style="margin-top: 10px; margin-left: 20px; color: #8b949e;">
+                                        <li>Your domain is correctly pointing to Netlify</li>
+                                        <li>There's no CAA record blocking Let's Encrypt</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ Website loads but shows errors</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> You may need to add environment variables to Netlify:
+                                    <ol style="margin-top: 10px; margin-left: 20px; color: #8b949e;">
+                                        <li>Go to Netlify Site Settings → Environment Variables</li>
+                                        <li>Add each variable from your <code>.env.local</code> file</li>
+                                        <li>Trigger a new deploy: Deploys → Trigger Deploy</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "Permission denied" when pushing to GitHub</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution (Mac):</strong> Use sudo if needed:
+                                </div>
+                                <div class="code-block">
+                                    <code>sudo git push -u origin main</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ Can't find DNS settings at domain provider</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> DNS settings location varies by provider:
+                                    <ul style="margin-top: 10px; margin-left: 20px; color: #8b949e;">
+                                        <li><strong>GoDaddy:</strong> My Products → Domain → DNS</li>
+                                        <li><strong>Namecheap:</strong> Domain List → Manage → Advanced DNS</li>
+                                        <li><strong>Porkbun:</strong> Domain Management → DNS Records</li>
+                                        <li><strong>Google Domains:</strong> My domains → DNS</li>
+                                    </ul>
+                                    <p style="margin-top: 10px;">Search "[your provider] DNS settings" for specific instructions.</p>
+                                </div>
+                            </div>
+
+                            <div class="trouble-item">
+                                <div class="trouble-problem">❌ "remote origin already exists"</div>
+                                <div class="trouble-solution">
+                                    <strong>Solution:</strong> Remove the old origin and add the new one:
+                                </div>
+                                <div class="code-block">
+                                    <code>git remote remove origin && git remote add origin https://github.com/YOUR-USERNAME/tailored-solutions-website.git</code>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" id="prevBtn" onclick="changeStep(-1)" disabled>← Previous</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">Next Step →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let selectedPlatform = null;
+        const totalSteps = 8;
+
+        function selectPlatform(platform) {
+            selectedPlatform = platform;
+
+            // Update button styles
+            document.querySelectorAll('.platform-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-platform="${platform}"]`).classList.add('active');
+
+            // Show/hide platform-specific content
+            const isMac = platform === 'mac';
+
+            document.getElementById('macPrereqs').classList.toggle('hidden', !isMac);
+            document.getElementById('windowsPrereqs').classList.toggle('hidden', isMac);
+            document.getElementById('macDownload').classList.toggle('hidden', !isMac);
+            document.getElementById('windowsDownload').classList.toggle('hidden', isMac);
+            document.getElementById('macConfig').classList.toggle('hidden', !isMac);
+            document.getElementById('windowsConfig').classList.toggle('hidden', isMac);
+
+            // Mac-specific troubleshooting
+            const macPathTrouble = document.getElementById('macPathTrouble');
+            const macSudoClone = document.getElementById('macSudoClone');
+            if (macPathTrouble) macPathTrouble.classList.toggle('hidden', !isMac);
+            if (macSudoClone) macSudoClone.classList.toggle('hidden', !isMac);
+
+            // Clean install commands
+            document.getElementById('cleanInstallMac').classList.toggle('hidden', !isMac);
+            document.getElementById('cleanInstallWin').classList.toggle('hidden', isMac);
+
+            // Update terminal name
+            document.getElementById('terminalName').textContent = isMac ? 'new Terminal window' : 'new Command Prompt (search for "cmd")';
+
+            // Update file location
+            document.getElementById('fileLocation').textContent = isMac
+                ? 'Your website files are now in: ~/Documents/tailored-solutions-website'
+                : 'Your website files are now in: C:\\Users\\YourName\\Documents\\tailored-solutions-website';
+
+            // Enable next button
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function changeStep(direction) {
+            if (currentStep === 1 && !selectedPlatform) {
+                alert('Please select your operating system first (Mac or Windows)');
+                return;
+            }
+
+            const newStep = currentStep + direction;
+            if (newStep < 1 || newStep > totalSteps) return;
+
+            // Hide current step
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+
+            // Update progress
+            document.querySelector(`.progress-dot[data-step="${currentStep}"]`).classList.remove('active');
+            if (direction > 0) {
+                document.querySelector(`.progress-dot[data-step="${currentStep}"]`).classList.add('completed');
+            } else {
+                document.querySelector(`.progress-dot[data-step="${currentStep}"]`).classList.remove('completed');
+            }
+
+            // Show new step
+            currentStep = newStep;
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+            document.querySelector(`.progress-dot[data-step="${currentStep}"]`).classList.add('active');
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentStep === 1;
+            document.getElementById('nextBtn').textContent = currentStep === totalSteps ? '✓ Complete' : 'Next Step →';
+
+            if (currentStep === totalSteps) {
+                document.getElementById('nextBtn').disabled = true;
+            }
+
+            // Update config command when reaching step 6
+            if (currentStep === 6) {
+                updateConfigCommand();
+            }
+
+            // Scroll to top of steps container
+            document.getElementById('stepsContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyCode(btn) {
+            const codeBlock = btn.parentElement;
+            const code = codeBlock.querySelector('code').textContent;
+
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function toggleTroubleshooting(header) {
+            const content = header.nextElementSibling;
+            const toggle = header.querySelector('.troubleshooting-toggle');
+            content.classList.toggle('open');
+            toggle.classList.toggle('open');
+        }
+
+        function updateConfigCommand() {
+            const name = document.getElementById('businessName').value || 'Tailored Solutions';
+            const phone = document.getElementById('businessPhone').value || '';
+            const email = document.getElementById('businessEmail').value || '';
+            const location = document.getElementById('businessLocation').value || '';
+
+            // Mac command
+            const macConfigEl = document.querySelector('#macConfig .code-block code');
+            if (macConfigEl) {
+                macConfigEl.textContent = `cat > .env.local << 'EOF'
+NEXT_PUBLIC_BUSINESS_NAME="${name}"
+NEXT_PUBLIC_BUSINESS_PHONE="${phone}"
+NEXT_PUBLIC_BUSINESS_EMAIL="${email}"
+NEXT_PUBLIC_BUSINESS_LOCATION="${location}"
+EOF`;
+            }
+
+            // Windows commands - update each one
+            const winConfigs = document.querySelectorAll('#windowsConfig .code-block code');
+            if (winConfigs.length >= 4) {
+                winConfigs[0].textContent = `echo NEXT_PUBLIC_BUSINESS_NAME="${name}" > .env.local`;
+                winConfigs[1].textContent = `echo NEXT_PUBLIC_BUSINESS_PHONE="${phone}" >> .env.local`;
+                winConfigs[2].textContent = `echo NEXT_PUBLIC_BUSINESS_EMAIL="${email}" >> .env.local`;
+                winConfigs[3].textContent = `echo NEXT_PUBLIC_BUSINESS_LOCATION="${location}" >> .env.local`;
+            }
+        }
+
+        // Add input listeners for config form
+        document.querySelectorAll('#businessName, #businessPhone, #businessEmail, #businessLocation').forEach(input => {
+            input.addEventListener('input', updateConfigCommand);
+        });
+
+        // Disable next button initially until platform is selected
+        document.getElementById('nextBtn').disabled = true;
+    </script>
+</body>
+</html>

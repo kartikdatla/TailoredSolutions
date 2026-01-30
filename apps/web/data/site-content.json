@@ -1,0 +1,334 @@
+{
+  "admin": {
+    "email": "admin@tailoredsolutions.co.uk",
+    "passwordHash": "",
+    "setupComplete": false
+  },
+  "business": {
+    "name": "Tailored Solutions",
+    "tagline": "Expert Home Improvements",
+    "phone": "01234 567890",
+    "email": "info@tailoredsolutions.co.uk",
+    "whatsapp": "+44 1234 567890",
+    "address": {
+      "street": "",
+      "city": "Greater London",
+      "areas": [
+        "Essex",
+        "Surrey",
+        "Herts",
+        "Kent"
+      ]
+    },
+    "hours": {
+      "weekdays": "8am - 6pm",
+      "saturday": "9am - 4pm",
+      "sunday": "Closed"
+    },
+    "social": {
+      "facebook": "",
+      "instagram": "",
+      "linkedin": "",
+      "google": ""
+    }
+  },
+  "stats": {
+    "yearsExperience": 15,
+    "projectsCompleted": 500,
+    "clientSatisfaction": 98,
+    "starRating": 5,
+    "referralRate": 98
+  },
+  "homepage": {
+    "hero": {
+      "badge": "Premium Home Services",
+      "title": "Crafting Exceptional Living Spaces",
+      "subtitle": "Expert electrical, carpentry, and renovation services delivered with precision and care. Transform your home with London's trusted craftsmen.",
+      "ctaPrimary": "Get Free Quote",
+      "ctaSecondary": "View Our Work"
+    },
+    "trustBadges": [
+      "Free Consultation",
+      "Fully Insured",
+      "Quality Guaranteed",
+      "Transparent Pricing"
+    ]
+  },
+  "services": {
+    "electrical": {
+      "title": "Electrical Services",
+      "description": "Complete electrical solutions for your home, from simple repairs to full rewiring. All work certified and compliant with the latest regulations.",
+      "badge": "NICEIC APPROVED",
+      "items": [
+        {
+          "title": "Full & Partial Rewiring",
+          "description": "Complete home rewiring or targeted upgrades to modernize your electrical system."
+        },
+        {
+          "title": "Consumer Unit Upgrades",
+          "description": "Replace old fuse boxes with modern consumer units for enhanced safety."
+        },
+        {
+          "title": "Lighting Design & Installation",
+          "description": "Indoor and outdoor lighting solutions to enhance your living spaces."
+        },
+        {
+          "title": "Socket & Switch Installation",
+          "description": "Additional sockets, USB outlets, and smart switches throughout your home."
+        },
+        {
+          "title": "Electrical Inspections",
+          "description": "EICR testing and certification for landlords and homeowners."
+        },
+        {
+          "title": "EV Charger Installation",
+          "description": "Home electric vehicle charging points with OZEV grant assistance."
+        }
+      ]
+    },
+    "carpentry": {
+      "title": "Carpentry & Joinery",
+      "description": "Bespoke carpentry solutions crafted with precision. From fitted furniture to structural work, we bring your vision to life.",
+      "badge": "MASTER CRAFTSMEN",
+      "items": [
+        {
+          "title": "Fitted Wardrobes",
+          "description": "Custom-designed wardrobes that maximize your storage space."
+        },
+        {
+          "title": "Kitchen Fitting",
+          "description": "Professional kitchen installation and cabinet making."
+        },
+        {
+          "title": "Staircase Installation",
+          "description": "New staircases, repairs, and bespoke balustrades."
+        },
+        {
+          "title": "Doors & Windows",
+          "description": "Internal and external door fitting, plus window installations."
+        },
+        {
+          "title": "Decking & Fencing",
+          "description": "Outdoor living spaces and secure garden boundaries."
+        },
+        {
+          "title": "Bespoke Furniture",
+          "description": "Custom-made furniture pieces designed for your space."
+        }
+      ]
+    },
+    "renovation": {
+      "title": "Home Improvements",
+      "description": "Complete renovation services to transform your property. We manage every aspect of your project from start to finish.",
+      "badge": "FULL PROJECT MANAGEMENT",
+      "items": [
+        {
+          "title": "Kitchen Renovations",
+          "description": "Complete kitchen transformations including design and installation."
+        },
+        {
+          "title": "Bathroom Renovations",
+          "description": "Modern bathroom designs with quality fixtures and finishes."
+        },
+        {
+          "title": "Loft Conversions",
+          "description": "Transform unused loft space into valuable living areas."
+        },
+        {
+          "title": "Extensions",
+          "description": "Single and double-story extensions to expand your home."
+        },
+        {
+          "title": "Garage Conversions",
+          "description": "Convert your garage into a functional living space or home office."
+        },
+        {
+          "title": "General Renovations",
+          "description": "Full property renovations and modernization projects."
+        }
+      ]
+    }
+  },
+  "about": {
+    "title": "Craftsmanship Meets Passion",
+    "subtitle": "Professional trades with a personal touch. Quality workmanship you can trust for all your home improvement needs.",
+    "story": {
+      "title": "Built on Trust",
+      "content": "With over 15 years of experience in the home improvement industry, Tailored Solutions has built a reputation for excellence across Greater London and the surrounding areas. Our team of skilled craftsmen brings together expertise in electrical work, carpentry, and general renovations to deliver comprehensive solutions for your home.\n\nWe believe in doing things right the first time. Every project we undertake is completed to the highest standards, fully compliant with all relevant regulations, and backed by our satisfaction guarantee."
+    },
+    "values": [
+      {
+        "title": "Quality First",
+        "description": "We never compromise on materials or workmanship"
+      },
+      {
+        "title": "Transparent Pricing",
+        "description": "Clear quotes with no hidden costs or surprises"
+      },
+      {
+        "title": "Fully Certified",
+        "description": "All work certified and compliant with regulations"
+      },
+      {
+        "title": "Customer Focus",
+        "description": "Your satisfaction is our top priority"
+      }
+    ],
+    "certifications": [
+      "NICEIC Approved Contractor",
+      "Checkatrade Verified",
+      "Trading Standards Approved",
+      "Fully Insured"
+    ]
+  },
+  "testimonials": [
+    {
+      "id": "1",
+      "name": "Sarah Mitchell",
+      "location": "Islington, London",
+      "service": "electrical",
+      "rating": 5,
+      "text": "Absolutely fantastic service from start to finish. They rewired our entire Victorian terrace and the work was impeccable. Very professional team who kept us informed throughout.",
+      "date": "2024-01-15",
+      "featured": true
+    },
+    {
+      "id": "2",
+      "name": "James Thompson",
+      "location": "Richmond, Surrey",
+      "service": "carpentry",
+      "rating": 5,
+      "text": "The fitted wardrobes they built are stunning. Perfect craftsmanship and attention to detail. They even helped with the design to maximize our awkward alcove space.",
+      "date": "2024-01-20",
+      "featured": true
+    },
+    {
+      "id": "3",
+      "name": "Emma & David Chen",
+      "location": "Chiswick, London",
+      "service": "renovation",
+      "rating": 5,
+      "text": "Our kitchen renovation exceeded all expectations. The team managed everything brilliantly and the finished result is like something from a magazine. Highly recommend!",
+      "date": "2024-02-01",
+      "featured": true
+    },
+    {
+      "id": "4",
+      "name": "Robert Williams",
+      "location": "Hampstead, London",
+      "service": "electrical",
+      "rating": 5,
+      "text": "Had a consumer unit upgrade and additional sockets installed. Quick, clean work and all certified properly. Will definitely use again.",
+      "date": "2024-02-10",
+      "featured": false
+    },
+    {
+      "id": "5",
+      "name": "Lisa Anderson",
+      "location": "Bromley, Kent",
+      "service": "renovation",
+      "rating": 5,
+      "text": "Garage conversion into a home office was completed on time and on budget. The attention to detail was exceptional. Love my new workspace!",
+      "date": "2024-02-15",
+      "featured": true
+    }
+  ],
+  "portfolio": [
+    {
+      "id": "1",
+      "title": "Victorian Terrace Full Rewire",
+      "category": "electrical",
+      "description": "Complete electrical rewiring of a 4-bedroom Victorian property including consumer unit upgrade and smart home integration.",
+      "location": "Islington, London",
+      "year": "2024",
+      "images": [
+        "/images/portfolio/electrical-1.jpg"
+      ],
+      "featured": true
+    },
+    {
+      "id": "2",
+      "title": "Bespoke Kitchen Installation",
+      "category": "carpentry",
+      "description": "Handcrafted shaker-style kitchen with custom island and integrated appliances.",
+      "location": "Richmond, Surrey",
+      "year": "2024",
+      "images": [
+        "/images/portfolio/kitchen-1.jpg"
+      ],
+      "featured": true
+    },
+    {
+      "id": "3",
+      "title": "Loft Conversion with En-Suite",
+      "category": "renovation",
+      "description": "Dormer loft conversion creating a master bedroom with en-suite bathroom.",
+      "location": "Chiswick, London",
+      "year": "2024",
+      "images": [
+        "/images/portfolio/loft-1.jpg"
+      ],
+      "featured": true
+    },
+    {
+      "id": "4",
+      "title": "Garden Room & Decking",
+      "category": "carpentry",
+      "description": "Timber-framed garden office with matching composite decking.",
+      "location": "Hampstead, London",
+      "year": "2024",
+      "images": [
+        "/images/portfolio/garden-1.jpg"
+      ],
+      "featured": true
+    },
+    {
+      "id": "5",
+      "title": "Smart Home Lighting",
+      "category": "electrical",
+      "description": "Whole-house smart lighting system with automated controls and scenes.",
+      "location": "Bromley, Kent",
+      "year": "2024",
+      "images": [
+        "/images/portfolio/lighting-1.jpg"
+      ],
+      "featured": false
+    },
+    {
+      "id": "6",
+      "title": "Bathroom Transformation",
+      "category": "renovation",
+      "description": "Complete bathroom renovation with walk-in shower and underfloor heating.",
+      "location": "Ealing, London",
+      "year": "2024",
+      "images": [
+        "/images/portfolio/bathroom-1.jpg"
+      ],
+      "featured": true
+    },
+    {
+      "id": "7",
+      "title": "Fitted Wardrobes",
+      "category": "carpentry",
+      "description": "Floor-to-ceiling fitted wardrobes with internal LED lighting.",
+      "location": "Enfield, London",
+      "year": "2024",
+      "images": [
+        "/images/portfolio/wardrobe-1.jpg"
+      ],
+      "featured": false
+    },
+    {
+      "id": "8",
+      "title": "Garage Conversion",
+      "category": "renovation",
+      "description": "Garage converted into a fully-equipped home office with separate entrance.",
+      "location": "Watford, Herts",
+      "year": "2024",
+      "images": [
+        "/images/portfolio/garage-1.jpg"
+      ],
+      "featured": true
+    }
+  ]
+}

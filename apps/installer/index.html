@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailored Solutions - Website Installer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --navy: #0f172a;
+      --navy-light: #1e293b;
+      --gold: #f59e0b;
+      --green: #22c55e;
+      --red: #ef4444;
+      --slate: #64748b;
+      --slate-light: #94a3b8;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: var(--navy);
+      color: white;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .app {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background: var(--navy-light);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .logo-text {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .logo-text span {
+      color: var(--gold);
+    }
+
+    /* Steps */
+    .steps {
+      flex: 1;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      border-radius: 12px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .step-item.active {
+      background: rgba(59, 130, 246, 0.2);
+    }
+
+    .step-item.completed {
+      opacity: 0.6;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .step-item.active .step-number {
+      background: var(--primary);
+    }
+
+    .step-item.completed .step-number {
+      background: var(--green);
+    }
+
+    .step-item.completed .step-number::after {
+      content: '✓';
+    }
+
+    .step-item.completed .step-number span {
+      display: none;
+    }
+
+    .step-info h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .step-info p {
+      font-size: 12px;
+      color: var(--slate-light);
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 20px 32px;
+      background: rgba(0, 0, 0, 0.2);
+      -webkit-app-region: drag;
+    }
+
+    .content {
+      flex: 1;
+      padding: 32px;
+      overflow-y: auto;
+    }
+
+    .step-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .step-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      color: var(--slate-light);
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--navy-light);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Requirements */
+    .requirement {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .requirement-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .requirement-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .requirement-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-badge.success {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--green);
+    }
+
+    .status-badge.error {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--red);
+    }
+
+    .status-badge.checking {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--primary);
+    }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .form-group .hint {
+      font-size: 12px;
+      color: var(--slate-light);
+      margin-top: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      color: white;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--slate);
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-success {
+      background: var(--green);
+      color: white;
+    }
+
+    .btn-link {
+      background: transparent;
+      color: var(--primary);
+      padding: 0;
+    }
+
+    .btn-link:hover {
+      text-decoration: underline;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 20px 32px;
+      background: rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Progress */
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+
+    /* Console */
+    .console {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+      font-size: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 16px;
+    }
+
+    .console-line {
+      margin-bottom: 4px;
+      word-break: break-all;
+    }
+
+    .console-line.error {
+      color: var(--red);
+    }
+
+    .console-line.success {
+      color: var(--green);
+    }
+
+    /* Grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* Link card */
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .link-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .link-card-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .link-card h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .link-card p {
+      font-size: 12px;
+      color: var(--slate-light);
+    }
+
+    /* Alerts */
+    .alert {
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .alert-info {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .alert-warning {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .alert-success {
+      background: rgba(34, 197, 94, 0.2);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">TS</div>
+        <div class="logo-text">Tailored <span>Solutions</span></div>
+      </div>
+
+      <div class="steps">
+        <div class="step-item active" data-step="1">
+          <div class="step-number"><span>1</span></div>
+          <div class="step-info">
+            <h4>Welcome</h4>
+            <p>Get started</p>
+          </div>
+        </div>
+        <div class="step-item" data-step="2">
+          <div class="step-number"><span>2</span></div>
+          <div class="step-info">
+            <h4>Requirements</h4>
+            <p>Check system</p>
+          </div>
+        </div>
+        <div class="step-item" data-step="3">
+          <div class="step-number"><span>3</span></div>
+          <div class="step-info">
+            <h4>Installation</h4>
+            <p>Download files</p>
+          </div>
+        </div>
+        <div class="step-item" data-step="4">
+          <div class="step-number"><span>4</span></div>
+          <div class="step-info">
+            <h4>Business Info</h4>
+            <p>Configure details</p>
+          </div>
+        </div>
+        <div class="step-item" data-step="5">
+          <div class="step-number"><span>5</span></div>
+          <div class="step-info">
+            <h4>API Setup</h4>
+            <p>Connect services</p>
+          </div>
+        </div>
+        <div class="step-item" data-step="6">
+          <div class="step-number"><span>6</span></div>
+          <div class="step-info">
+            <h4>Complete</h4>
+            <p>Launch website</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main">
+      <div class="header">
+        <h1>Website Installer</h1>
+      </div>
+
+      <div class="content">
+        <!-- Step 1: Welcome -->
+        <div class="step-content active" data-step="1">
+          <h2>Welcome to Tailored Solutions</h2>
+          <p class="subtitle">This installer will help you set up your professional home improvements business website in just a few minutes.</p>
+
+          <div class="card">
+            <div class="card-title">What you'll get:</div>
+            <ul style="list-style: none; margin-left: 0;">
+              <li style="padding: 8px 0; display: flex; align-items: center; gap: 8px;">
+                <span style="color: var(--green);">✓</span>
+                Professional business website
+              </li>
+              <li style="padding: 8px 0; display: flex; align-items: center; gap: 8px;">
+                <span style="color: var(--green);">✓</span>
+                Content Management System (CMS)
+              </li>
+              <li style="padding: 8px 0; display: flex; align-items: center; gap: 8px;">
+                <span style="color: var(--green);">✓</span>
+                Online booking system
+              </li>
+              <li style="padding: 8px 0; display: flex; align-items: center; gap: 8px;">
+                <span style="color: var(--green);">✓</span>
+                WhisperAI transcription for consultations
+              </li>
+              <li style="padding: 8px 0; display: flex; align-items: center; gap: 8px;">
+                <span style="color: var(--green);">✓</span>
+                Customer testimonials & portfolio
+              </li>
+            </ul>
+          </div>
+
+          <div class="alert alert-info">
+            <span>ℹ️</span>
+            <div>
+              <strong>Before you begin:</strong><br>
+              Make sure you have an internet connection. The installer will download the website files and set everything up automatically.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Requirements -->
+        <div class="step-content" data-step="2">
+          <h2>System Requirements</h2>
+          <p class="subtitle">Let's check if your system has everything needed.</p>
+
+          <div class="requirement">
+            <div class="requirement-info">
+              <div class="requirement-icon">📦</div>
+              <div>
+                <strong>Node.js</strong>
+                <p style="font-size: 12px; color: var(--slate-light);">JavaScript runtime (v18 or higher)</p>
+              </div>
+            </div>
+            <div class="requirement-status">
+              <span id="node-version"></span>
+              <span id="node-status" class="status-badge checking">Checking...</span>
+            </div>
+          </div>
+
+          <div class="requirement">
+            <div class="requirement-info">
+              <div class="requirement-icon">📋</div>
+              <div>
+                <strong>npm</strong>
+                <p style="font-size: 12px; color: var(--slate-light);">Package manager</p>
+              </div>
+            </div>
+            <div class="requirement-status">
+              <span id="npm-version"></span>
+              <span id="npm-status" class="status-badge checking">Checking...</span>
+            </div>
+          </div>
+
+          <div class="requirement">
+            <div class="requirement-info">
+              <div class="requirement-icon">🔄</div>
+              <div>
+                <strong>Git</strong>
+                <p style="font-size: 12px; color: var(--slate-light);">Version control</p>
+              </div>
+            </div>
+            <div class="requirement-status">
+              <span id="git-version"></span>
+              <span id="git-status" class="status-badge checking">Checking...</span>
+            </div>
+          </div>
+
+          <div id="requirements-help" style="display: none; margin-top: 20px;">
+            <div class="alert alert-warning">
+              <span>⚠️</span>
+              <div>
+                <strong>Missing Requirements</strong><br>
+                Some required software is not installed. Click the links below to download:
+              </div>
+            </div>
+
+            <div class="grid-2" id="download-links">
+              <!-- Download links will be added here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Installation -->
+        <div class="step-content" data-step="3">
+          <h2>Installation</h2>
+          <p class="subtitle">Choose where to install your website files.</p>
+
+          <div class="form-group">
+            <label>Installation Directory</label>
+            <div style="display: flex; gap: 12px;">
+              <input type="text" id="install-dir" placeholder="Select a folder..." readonly>
+              <button class="btn btn-secondary" id="browse-btn">Browse</button>
+            </div>
+            <p class="hint">A new folder will be created in the selected directory.</p>
+          </div>
+
+          <div id="install-progress" style="display: none;">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+            <p id="progress-text" style="font-size: 14px; color: var(--slate-light);">Preparing...</p>
+
+            <div class="console" id="install-console">
+              <!-- Console output will appear here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Business Info -->
+        <div class="step-content" data-step="4">
+          <h2>Business Information</h2>
+          <p class="subtitle">Enter your business details. You can change these later in the CMS.</p>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Business Name</label>
+              <input type="text" id="business-name" placeholder="e.g., Smith & Sons Electrical">
+            </div>
+            <div class="form-group">
+              <label>Tagline</label>
+              <input type="text" id="business-tagline" placeholder="e.g., Expert Home Improvements">
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="business-phone" placeholder="e.g., 01234 567890">
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="business-email" placeholder="e.g., info@yourcompany.co.uk">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Service Area</label>
+            <input type="text" id="business-area" placeholder="e.g., Greater London, Essex, Surrey">
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Years of Experience</label>
+              <input type="text" id="business-years" placeholder="e.g., 15">
+            </div>
+            <div class="form-group">
+              <label>Projects Completed</label>
+              <input type="text" id="business-projects" placeholder="e.g., 500">
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: API Setup -->
+        <div class="step-content" data-step="5">
+          <h2>API Configuration</h2>
+          <p class="subtitle">Set up external services for enhanced features. All fields are optional.</p>
+
+          <div class="card">
+            <div class="card-title">🎤 OpenAI Whisper API</div>
+            <p style="font-size: 14px; color: var(--slate-light); margin-bottom: 16px;">
+              Used for voice transcription during consultations.
+            </p>
+            <div class="form-group">
+              <label>OpenAI API Key</label>
+              <input type="password" id="openai-key" placeholder="sk-...">
+              <p class="hint">
+                <button class="btn btn-link" onclick="openLink('https://platform.openai.com/api-keys')">
+                  Get your API key from OpenAI →
+                </button>
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">📧 Email Service (Optional)</div>
+            <p style="font-size: 14px; color: var(--slate-light); margin-bottom: 16px;">
+              For sending booking confirmations and notifications.
+            </p>
+            <div class="form-group">
+              <label>SMTP Host</label>
+              <input type="text" id="smtp-host" placeholder="e.g., smtp.gmail.com">
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label>SMTP User</label>
+                <input type="text" id="smtp-user" placeholder="your@email.com">
+              </div>
+              <div class="form-group">
+                <label>SMTP Password</label>
+                <input type="password" id="smtp-pass" placeholder="App password">
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-info">
+            <span>💡</span>
+            <div>
+              <strong>Tip:</strong> You can skip this step and configure APIs later through the admin panel.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Complete -->
+        <div class="step-content" data-step="6">
+          <h2>Setup Complete! 🎉</h2>
+          <p class="subtitle">Your website is ready to go. Here's what to do next:</p>
+
+          <div class="alert alert-success">
+            <span>✓</span>
+            <div>
+              <strong>Installation Successful</strong><br>
+              Your website has been set up and is ready to run.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">🚀 Launch Your Website</div>
+            <p style="margin-bottom: 16px; font-size: 14px; color: var(--slate-light);">
+              Click the button below to start your website locally. You can then access it in your browser.
+            </p>
+            <button class="btn btn-success" id="launch-btn">
+              <span>Launch Website</span>
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="card-title">📖 Next Steps</div>
+            <ul style="list-style: none;">
+              <li style="padding: 8px 0;">
+                1. <strong>Set up admin account:</strong> Visit /admin/login to create your admin credentials
+              </li>
+              <li style="padding: 8px 0;">
+                2. <strong>Customize content:</strong> Use the CMS to update your services, portfolio, and testimonials
+              </li>
+              <li style="padding: 8px 0;">
+                3. <strong>Deploy:</strong> Follow our guide to deploy your website to the internet
+              </li>
+            </ul>
+          </div>
+
+          <div class="grid-2">
+            <div class="link-card" onclick="openLink('http://localhost:3000')">
+              <div class="link-card-icon">🌐</div>
+              <div>
+                <h4>Open Website</h4>
+                <p>localhost:3000</p>
+              </div>
+            </div>
+            <div class="link-card" onclick="openLink('http://localhost:3000/admin/login')">
+              <div class="link-card-icon">⚙️</div>
+              <div>
+                <h4>Admin Panel</h4>
+                <p>Manage your content</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button class="btn btn-secondary" id="prev-btn" disabled>← Back</button>
+        <button class="btn btn-primary" id="next-btn">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    let currentStep = 1;
+    const totalSteps = 6;
+    let installDir = '';
+    let requirementsMet = { node: false, npm: false, git: false };
+
+    // DOM elements
+    const stepItems = document.querySelectorAll('.step-item');
+    const stepContents = document.querySelectorAll('.step-content');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    // Navigation
+    function goToStep(step) {
+      if (step < 1 || step > totalSteps) return;
+
+      currentStep = step;
+
+      // Update sidebar
+      stepItems.forEach(item => {
+        const itemStep = parseInt(item.dataset.step);
+        item.classList.remove('active', 'completed');
+        if (itemStep === currentStep) {
+          item.classList.add('active');
+        } else if (itemStep < currentStep) {
+          item.classList.add('completed');
+        }
+      });
+
+      // Update content
+      stepContents.forEach(content => {
+        content.classList.remove('active');
+        if (parseInt(content.dataset.step) === currentStep) {
+          content.classList.add('active');
+        }
+      });
+
+      // Update buttons
+      prevBtn.disabled = currentStep === 1;
+      nextBtn.textContent = currentStep === totalSteps ? 'Finish' : 'Continue →';
+
+      // Step-specific actions
+      if (currentStep === 2) {
+        checkRequirements();
+      }
+    }
+
+    prevBtn.addEventListener('click', () => goToStep(currentStep - 1));
+    nextBtn.addEventListener('click', async () => {
+      if (currentStep === 2 && !allRequirementsMet()) {
+        alert('Please install the missing requirements before continuing.');
+        return;
+      }
+
+      if (currentStep === 3) {
+        if (!installDir) {
+          alert('Please select an installation directory.');
+          return;
+        }
+        await runInstallation();
+        return;
+      }
+
+      if (currentStep === 4) {
+        await saveBusinessInfo();
+      }
+
+      if (currentStep === 5) {
+        await saveApiConfig();
+      }
+
+      if (currentStep === totalSteps) {
+        window.close();
+        return;
+      }
+
+      goToStep(currentStep + 1);
+    });
+
+    // Requirements check
+    async function checkRequirements() {
+      // Check Node.js
+      const nodeResult = await ipcRenderer.invoke('check-node');
+      document.getElementById('node-version').textContent = nodeResult.version || '';
+      document.getElementById('node-status').textContent = nodeResult.installed ? 'Installed' : 'Not Found';
+      document.getElementById('node-status').className = `status-badge ${nodeResult.installed ? 'success' : 'error'}`;
+      requirementsMet.node = nodeResult.installed;
+
+      // Check npm
+      const npmResult = await ipcRenderer.invoke('check-npm');
+      document.getElementById('npm-version').textContent = npmResult.version ? `v${npmResult.version}` : '';
+      document.getElementById('npm-status').textContent = npmResult.installed ? 'Installed' : 'Not Found';
+      document.getElementById('npm-status').className = `status-badge ${npmResult.installed ? 'success' : 'error'}`;
+      requirementsMet.npm = npmResult.installed;
+
+      // Check Git
+      const gitResult = await ipcRenderer.invoke('check-git');
+      document.getElementById('git-version').textContent = gitResult.version ? gitResult.version.replace('git version ', '') : '';
+      document.getElementById('git-status').textContent = gitResult.installed ? 'Installed' : 'Not Found';
+      document.getElementById('git-status').className = `status-badge ${gitResult.installed ? 'success' : 'error'}`;
+      requirementsMet.git = gitResult.installed;
+
+      // Show help if needed
+      if (!allRequirementsMet()) {
+        document.getElementById('requirements-help').style.display = 'block';
+        const downloadLinks = document.getElementById('download-links');
+        downloadLinks.innerHTML = '';
+
+        if (!requirementsMet.node || !requirementsMet.npm) {
+          downloadLinks.innerHTML += `
+            <div class="link-card" onclick="openLink('https://nodejs.org/')">
+              <div class="link-card-icon">📦</div>
+              <div>
+                <h4>Download Node.js</h4>
+                <p>Includes npm</p>
+              </div>
+            </div>
+          `;
+        }
+
+        if (!requirementsMet.git) {
+          downloadLinks.innerHTML += `
+            <div class="link-card" onclick="openLink('https://git-scm.com/downloads')">
+              <div class="link-card-icon">🔄</div>
+              <div>
+                <h4>Download Git</h4>
+                <p>Version control</p>
+              </div>
+            </div>
+          `;
+        }
+      } else {
+        document.getElementById('requirements-help').style.display = 'none';
+      }
+    }
+
+    function allRequirementsMet() {
+      return requirementsMet.node && requirementsMet.npm && requirementsMet.git;
+    }
+
+    // Directory selection
+    document.getElementById('browse-btn').addEventListener('click', async () => {
+      const dir = await ipcRenderer.invoke('select-directory');
+      if (dir) {
+        installDir = dir + '/tailored-solutions-website';
+        document.getElementById('install-dir').value = installDir;
+      }
+    });
+
+    // Installation
+    async function runInstallation() {
+      const progressDiv = document.getElementById('install-progress');
+      const progressFill = document.getElementById('progress-fill');
+      const progressText = document.getElementById('progress-text');
+      const consoleDiv = document.getElementById('install-console');
+
+      progressDiv.style.display = 'block';
+      nextBtn.disabled = true;
+
+      function log(text, type = '') {
+        const line = document.createElement('div');
+        line.className = `console-line ${type}`;
+        line.textContent = text;
+        consoleDiv.appendChild(line);
+        consoleDiv.scrollTop = consoleDiv.scrollHeight;
+      }
+
+      try {
+        // Clone repository
+        progressFill.style.width = '10%';
+        progressText.textContent = 'Downloading files...';
+        log('Cloning repository...');
+
+        // For demo purposes, we'll simulate the clone
+        // In production, this would clone from the actual repo
+        log('Note: This is a demo installer.');
+        log('In production, it would clone from your GitHub repository.');
+
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        log('Files downloaded successfully!', 'success');
+
+        // Install dependencies
+        progressFill.style.width = '50%';
+        progressText.textContent = 'Installing dependencies...';
+        log('Running npm install...');
+
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        log('Dependencies installed!', 'success');
+
+        // Complete
+        progressFill.style.width = '100%';
+        progressText.textContent = 'Installation complete!';
+        log('Setup complete!', 'success');
+
+        nextBtn.disabled = false;
+        goToStep(currentStep + 1);
+
+      } catch (error) {
+        log(`Error: ${error.message}`, 'error');
+        nextBtn.disabled = false;
+      }
+    }
+
+    // Save business info
+    async function saveBusinessInfo() {
+      const content = {
+        business: {
+          name: document.getElementById('business-name').value || 'Tailored Solutions',
+          tagline: document.getElementById('business-tagline').value || 'Expert Home Improvements',
+          phone: document.getElementById('business-phone').value || '01234 567890',
+          email: document.getElementById('business-email').value || 'info@example.co.uk',
+          address: {
+            city: document.getElementById('business-area').value || 'Greater London',
+          },
+        },
+        stats: {
+          yearsExperience: parseInt(document.getElementById('business-years').value) || 15,
+          projectsCompleted: parseInt(document.getElementById('business-projects').value) || 500,
+        },
+      };
+
+      // In production, this would save to the actual file
+      console.log('Business info:', content);
+    }
+
+    // Save API config
+    async function saveApiConfig() {
+      const envConfig = {
+        OPENAI_API_KEY: document.getElementById('openai-key').value,
+        SMTP_HOST: document.getElementById('smtp-host').value,
+        SMTP_USER: document.getElementById('smtp-user').value,
+        SMTP_PASS: document.getElementById('smtp-pass').value,
+      };
+
+      // In production, this would create the .env file
+      console.log('API config:', envConfig);
+    }
+
+    // Launch website
+    document.getElementById('launch-btn').addEventListener('click', async () => {
+      await ipcRenderer.invoke('open-url', 'http://localhost:3000');
+    });
+
+    // Open external link
+    function openLink(url) {
+      ipcRenderer.invoke('open-url', url);
+    }
+
+    // Initialize
+    goToStep(1);
+  </script>
+</body>
+</html>

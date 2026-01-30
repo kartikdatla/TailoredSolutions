@@ -1,0 +1,19 @@
+{
+  "name": "@home-improvements/db",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/schemas/index.js",
+  "types": "dist/schemas/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "mongoose": "^8.0.0",
+    "@home-improvements/shared": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.0"
+  }
+}

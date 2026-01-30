@@ -1,0 +1,50 @@
+{
+  "name": "tailored-solutions-installer",
+  "version": "1.0.0",
+  "description": "Easy installer for Tailored Solutions home improvements website",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:mac": "electron-builder --mac",
+    "build:win": "electron-builder --win",
+    "build:all": "electron-builder --mac --win"
+  },
+  "author": "Tailored Solutions",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "35.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "fs-extra": "^11.2.0"
+  },
+  "build": {
+    "appId": "com.tailoredsolutions.installer",
+    "productName": "Tailored Solutions Installer",
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "assets/icon.icns",
+      "identity": null,
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
