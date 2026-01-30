@@ -1057,7 +1057,7 @@
                     </div>
                     <div class="what-this-does">
                         <div class="what-this-does-title">🔍 What this does</div>
-                        <p><code>git clone</code> downloads a complete copy of the website from GitHub. Replace <code>YOUR-USERNAME</code> with the GitHub username where the website is stored.</p>
+                        <p><code>git clone</code> downloads a complete copy of the website from GitHub to your computer. This creates a folder called "TailoredSolutions" containing all the website files.</p>
                     </div>
 
                     <h3>Enter the Website Folder</h3>
@@ -1626,11 +1626,11 @@ NEXT_PUBLIC_BUSINESS_LOCATION="Your City"</code>
                         </div>
                         <div class="what-this-does">
                             <div class="what-this-does-title">🔍 What this does</div>
-                            <p>Links your local folder to your GitHub repository. <strong>Replace YOUR-USERNAME</strong> with your actual GitHub username!</p>
+                            <p>Links your local folder to your GitHub repository. This tells Git where to upload your code.</p>
                         </div>
-                        <div class="info-box warning" style="margin: 10px 0;">
-                            <div class="info-box-title">⚠️ First, create the repository on GitHub!</div>
-                            <p>Go to <a href="https://github.com/new" target="_blank" style="color: #58a6ff;">github.com/new</a>, name it <code>TailoredSolutions</code>, and click "Create repository". Don't add any files - just create it empty.</p>
+                        <div class="info-box" style="margin: 10px 0;">
+                            <div class="info-box-title">ℹ️ Note: Repository Already Exists</div>
+                            <p>The TailoredSolutions repository already exists, so you can skip creating it. If you get an error saying "remote origin already exists", that's fine - continue to the next step.</p>
                         </div>
 
                         <div class="code-block">
@@ -1649,8 +1649,9 @@ NEXT_PUBLIC_BUSINESS_LOCATION="Your City"</code>
                             <li>Find and select your <code>TailoredSolutions</code> repository</li>
                             <li>In the build settings:
                                 <ul style="margin-left: 20px; margin-top: 10px;">
+                                    <li><strong>Base directory:</strong> <code>apps/web</code></li>
                                     <li><strong>Build command:</strong> <code>npm run build</code></li>
-                                    <li><strong>Publish directory:</strong> <code>.next</code></li>
+                                    <li><strong>Publish directory:</strong> <code>apps/web/.next</code></li>
                                 </ul>
                             </li>
                             <li>Click <strong>"Deploy site"</strong></li>
